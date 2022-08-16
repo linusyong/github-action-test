@@ -6,6 +6,13 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v3
-      - name: List files in the repository
+        
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v26.1
+
+      - name: List all changed files
         run: |
-          ls ${{ github.workspace }}
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "$file was changed"
+          done
