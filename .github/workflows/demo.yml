@@ -15,12 +15,13 @@ jobs:
 
       - name: Check protected file not changed
         run: |
+          changed_protected=0
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo $file
-            if [[ "$file" == ^protected* ]]; then
-              changed_protected = true
+            if [[ "$file" =~ ^protected* ]]; then
+              changed_protected=1
             fi
           done
-          if [[ $change_protected ]]; then
+          if [ $changed_protected -eq 1 ]; then
             exit 1
           fi
