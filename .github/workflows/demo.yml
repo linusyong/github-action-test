@@ -17,6 +17,4 @@ jobs:
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo $file
-            [[ "$file" == ^protected* ]] || exit 0
-            exit 1
           done
